@@ -1,3 +1,28 @@
+see: http://thewalter.net/stef/freebsd/jails/jailutils/
+
+Build
+=====
+
+Working on FreeBDD 10.2-STABLE
+
+./configure && make
+
+jkill
+=====
+
+DESCRIPTION
+-----------
+
+ The jkill utility stops one or more jails in an orderly fashion. It calls the
+ shutdown scripts inside the jail and then kills all remaining processes. When
+ used with the -r option it can also restart the jail.
+
+jkill can also be run from within a jail, to shutdown or restart
+the jail. Replace the halt or reboot binaries in your jails with
+jkill as a hard link. Each of these commands will then perform
+their respective actions in the jail.
+
+
 =================================================================
                         JAILUTILS README
 
@@ -19,4 +44,3 @@ jails: List running jails
 For more info see:
 
 http://memberwebs.com/swalter/freebsd/jails/jailutils/
-
