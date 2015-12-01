@@ -1,0 +1,97 @@
+.\" 
+.\" Copyright (c) 2004, Stefan Walter
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without 
+.\" modification, are permitted provided that the following conditions 
+.\" are met:
+.\" 
+.\"     * Redistributions of source code must retain the above 
+.\"       copyright notice, this list of conditions and the 
+.\"       following disclaimer.
+.\"     * Redistributions in binary form must reproduce the 
+.\"       above copyright notice, this list of conditions and 
+.\"       the following disclaimer in the documentation and/or 
+.\"       other materials provided with the distribution.
+.\"     * The names of contributors to this software may not be 
+.\"       used to endorse or promote products derived from this 
+.\"       software without specific prior written permission.
+.\" 
+.\" THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+.\" "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
+.\" LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS 
+.\" FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
+.\" COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+.\" INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+.\" BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS 
+.\" OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED 
+.\" AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+.\" OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF 
+.\" THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+.\" DAMAGE.
+.\" 
+.\"
+.\" CONTRIBUTORS
+.\"  Stef Walter <stef@memberwebs.com>
+.\"
+.\" Process this file with 
+.\" groff -mdoc -Tascii jps.8
+.\"
+.Dd April, 2004
+.Dt jps 8
+.Os jps 
+.Sh NAME
+.Nm jps
+.Nd prints processes running in a jail
+.Sh SYNOPSIS
+.Nm
+.Fl i
+.Ar jail
+.Nm 
+.Ar jail
+.Op Ar ps-options ...
+.Sh DESCRIPTION
+The 
+.Nm 
+utility prints out a list of the processes running in a given jail. When run 
+with the
+.Fl i
+argument it just prints out the process ids. Otherwise it prints out a full
+.Xr ps 1
+type listing for the processes in the jail. The 
+.Xr ps 1
+formatting and other options are available for use.
+.Sh OPTIONS
+.Bl -tag -width ".Fl u Ar ps-options"
+.It Fl i
+Only print out the process ids.
+.It Ar jail
+Either a jail id (which is an integer) or a jail host name.
+.It Ar ps-options
+Formatting and other to be passed to 
+.Xr ps 1
+when listing processes in the jail.
+.El
+.Sh NOTES
+It is possible to run two jails with the same host name.
+.Nm
+however always only prints out processes for one jail.
+.Pp
+The environment is purged properly before running 
+.Xr ps 1
+in the jail in order to prevent unwanted information from 
+leaking into the jail.
+.Pp
+.Nm
+needs a valid 
+.Pa /dev/null
+device in the jail. If it doesn't exit for some reason it is automatically 
+created.
+.Sh SEE ALSO
+.Xr jail 8 ,
+.Xr jails 8 ,
+.Xr jls 8 ,
+.Xr jstart 8 ,
+.Xr ps 1
+.Sh AUTHOR
+.An Stef Walter Aq stef@memberwebs.com

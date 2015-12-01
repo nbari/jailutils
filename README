@@ -1,0 +1,22 @@
+=================================================================
+                        JAILUTILS README
+
+Several utilies for managing jails.
+
+OLD VERSION 4.x UTILITIES
+
+killjail: shutdown or restart a jail (when used with jailer).
+jails: list the jails running on a system.
+jstart: start up a jail securely
+
+NEW VERSION 5.x UTILITIES
+jps: List processes in a jail
+jid: Print id of a jail
+jstart: Start up a jail securily
+jkill: Shutdown a jail in an orderly fashion
+jails: List running jails
+
+For more info see:
+
+http://memberwebs.com/swalter/freebsd/jails/jailutils/
+

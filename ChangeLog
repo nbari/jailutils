@@ -1,0 +1,45 @@
+1.6
+ - Running jkill from within a jail to restart it would result in
+   many processes ignoring TERM and other signals. Fixed.
+
+1.5
+ - Fix problems with IPv6 startup, and other minor fixes.
+
+1.4
+ - Support FreeBSD 7.2 multi-ip jails.
+
+1.3
+ - Support the multi-ip jail patch that's floating around.
+
+1.2
+ - Fix bugs which prevented jkill from working properly in a jail
+   as advertized.
+
+1.1
+ - Use my real name 'Stef Walter'
+   See: http://memberwebs.com/nielsen/
+
+1.0
+ - Stable version number
+ - Documentation fixes
+
+0.6
+ - Rewrote utility set to new support for new jail features in FreeBSD 5.x
+ - Added injail from the jailer package
+ - Added jstart command to old utilities
+
+0.5.4
+ - Compiles and runs on FreeBSD 5.0
+
+0.5.3
+ - Added quiet option to killjail
+ - Added force option to killjail
+
+0.5.2
+ - small fixes to documentation
+
+0.5.1
+ - jails can be run by non-root users
+
+0.5
+ - Initial release

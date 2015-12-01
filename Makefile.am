@@ -1,0 +1,4 @@
+
+SUBDIRS = $(SRC_SUB)
+EXTRA_DIST = BUGS
+DIST_SUBDIRS = src srcx

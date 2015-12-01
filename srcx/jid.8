@@ -1,0 +1,80 @@
+.\" 
+.\" Copyright (c) 2004, Stefan Walter
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without 
+.\" modification, are permitted provided that the following conditions 
+.\" are met:
+.\" 
+.\"     * Redistributions of source code must retain the above 
+.\"       copyright notice, this list of conditions and the 
+.\"       following disclaimer.
+.\"     * Redistributions in binary form must reproduce the 
+.\"       above copyright notice, this list of conditions and 
+.\"       the following disclaimer in the documentation and/or 
+.\"       other materials provided with the distribution.
+.\"     * The names of contributors to this software may not be 
+.\"       used to endorse or promote products derived from this 
+.\"       software without specific prior written permission.
+.\" 
+.\" THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+.\" "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
+.\" LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS 
+.\" FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
+.\" COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+.\" INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+.\" BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS 
+.\" OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED 
+.\" AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+.\" OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF 
+.\" THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+.\" DAMAGE.
+.\" 
+.\"
+.\" CONTRIBUTORS
+.\"  Stef Walter <stef@memberwebs.com>
+.\"
+.\" Process this file with 
+.\" groff -mdoc -Tascii jid.8
+.\"
+.Dd April, 2004
+.Dt jid 8
+.Os jid 
+.Sh NAME
+.Nm jid
+.Nd translates jail host names to jail ids and vice versa
+.Sh SYNOPSIS
+.Nm
+.Ar hostname 
+.Nm 
+.Ar jail-id
+.Sh DESCRIPTION
+.Nm 
+translates jail host names to jail ids and vice versa for running jails. When 
+called with an integer number as it's argument, 
+.Nm
+assumes that it's a jail id and converts it to a host name. When called with
+any other text,
+.Nm
+uses it as a host name and tries to resolve it to a jail id.
+.Sh NOTES
+Jail ids are an integer assigned when a jail starts up. Use 
+.Xr jail 8
+or 
+.Xr jstart 8
+with a 
+.Fl i
+argument to print the jail id for a running jail. 
+.Xr jls 8
+will also print jail ids for all jails running on the system.
+.Pp
+It is possible to run two jails with the same host name.
+.Nm
+however always only prints out one jail id for a given jail host name.
+.Sh SEE ALSO
+.Xr jail 2 ,
+.Xr jail 8 ,
+.Xr jls 8 ,
+.Xr jstart 8
+.Sh AUTHOR
+.An Stef Walter Aq stef@memberwebs.com

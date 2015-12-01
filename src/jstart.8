@@ -1,0 +1,102 @@
+.\" 
+.\" Copyright (c) 2004, Stefan Walter
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without 
+.\" modification, are permitted provided that the following conditions 
+.\" are met:
+.\" 
+.\"     * Redistributions of source code must retain the above 
+.\"       copyright notice, this list of conditions and the 
+.\"       following disclaimer.
+.\"     * Redistributions in binary form must reproduce the 
+.\"       above copyright notice, this list of conditions and 
+.\"       the following disclaimer in the documentation and/or 
+.\"       other materials provided with the distribution.
+.\"     * The names of contributors to this software may not be 
+.\"       used to endorse or promote products derived from this 
+.\"       software without specific prior written permission.
+.\" 
+.\" THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+.\" "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
+.\" LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS 
+.\" FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
+.\" COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+.\" INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+.\" BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS 
+.\" OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED 
+.\" AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+.\" OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF 
+.\" THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+.\" DAMAGE.
+.\" 
+.\"
+.\" CONTRIBUTORS
+.\"  Stef Walter <stef@memberwebs.com>
+.\"
+.\" Process this file with 
+.\" groff -mdoc -Tascii jstart.8
+.\"
+.Dd April, 2004
+.Dt jstart 8
+.Os jstart 
+.Sh NAME
+.Nm jstart
+.Nd start a jail
+.Sh SYNOPSIS
+.Nm
+.Ar path
+.Ar hostname
+.Ar ip-number
+.Op Ar command ...
+.Sh DESCRIPTION
+The 
+.Nm 
+utility starts a jail. It is a more secure replacement for the
+.Xr jail 8
+command. See the 
+.Xr jail 8 
+man page for details on how to setup a jail, and jail concepts. 
+.Pp
+.Nm
+purges down the environment before running the command inside the
+jail in order to prevent information leakage into the jail. If this
+is not desired, then use the 
+.Xr jail 8
+command.
+.Sh OPTIONS
+.Bl -tag -width ".Fl u Ar ip-number"
+.It Ar path
+Directory which is to be the root of the jail.
+.It Ar hostname
+Hostname of the prison.
+.It Ar ip-number
+IP number assigned to the prison.
+.It Ar command
+Optional command to be executed inside the jail. When not specified
+this defaults to
+.Pa "/bin/sh /etc/rc"
+.El
+.Sh NOTES
+.Nm 
+always runs as root, and runs 
+.Em command
+as root. If this is not desired, use 
+.Xr jail 8 
+with the
+.Fl u 
+option.
+.Pp
+The command called must be owned by root in order to be executed.
+.Pp
+The environment is purged properly before running the scripts in the 
+jail in order to prevent unwanted information from leaking into the
+jail.
+.Sh FILES
+.Pa /etc/rc
+.Sh SEE ALSO
+.Xr jail 2 ,
+.Xr jail 8 ,
+.Xr jails 8 
+.Sh AUTHOR
+.An Stef Walter Aq stef@memberwebs.com

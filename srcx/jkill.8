@@ -1,0 +1,130 @@
+.\" 
+.\" Copyright (c) 2004, Stefan Walter
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without 
+.\" modification, are permitted provided that the following conditions 
+.\" are met:
+.\" 
+.\"     * Redistributions of source code must retain the above 
+.\"       copyright notice, this list of conditions and the 
+.\"       following disclaimer.
+.\"     * Redistributions in binary form must reproduce the 
+.\"       above copyright notice, this list of conditions and 
+.\"       the following disclaimer in the documentation and/or 
+.\"       other materials provided with the distribution.
+.\"     * The names of contributors to this software may not be 
+.\"       used to endorse or promote products derived from this 
+.\"       software without specific prior written permission.
+.\" 
+.\" THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+.\" "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
+.\" LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS 
+.\" FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
+.\" COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+.\" INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+.\" BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS 
+.\" OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED 
+.\" AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+.\" OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF 
+.\" THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+.\" DAMAGE.
+.\" 
+.\"
+.\" CONTRIBUTORS
+.\"  Stef Walter <stef@memberwebs.com>
+.\"
+.\" Process this file with 
+.\" groff -mdoc -Tascii jkill.8
+.\"
+.Dd April, 2004
+.Dt jkill 8
+.Os jkill 
+.Sh NAME
+.Nm jkill
+.Nd stop or restart a jail
+.Sh SYNOPSIS
+.Nm
+.Op Fl fkqv
+.Op Fl t Ar timeout
+.Ar jail ...
+.Nm
+.Fl r
+.Op Fl fqv
+.Op Fl t Ar timeout
+.Ar jail ...
+.Nm halt
+.Nm reboot
+.Sh DESCRIPTION
+The 
+.Nm jkill
+utility stops one or more jails in an orderly fashion. It calls the 
+shutdown scripts inside the jail and then kills all remaining processes. 
+When used with the 
+.Fl r
+option it can also restart the jail. 
+.Pp
+.Nm 
+can also be run from within a jail, to shutdown or restart the jail. 
+Replace the 
+.Em halt
+or 
+.Em reboot
+binaries in your jails with 
+.Nm
+as a hard link. Each of these commands will then perform their respective
+actions in the jail.
+.Sh OPTIONS
+.Bl -tag -width ".Fl u Ar timeout"
+.It Fl f
+Force the processes to quit. If processes remain after sending them
+a SIGTERM then kill them with SIGKILL which forces the a process exit.
+.It Fl k
+Don't call the shutdown scripts, just kill the processes.
+.It Fl q
+Supress warnings.
+.It Fl r
+After shutting down the jail, restart it by running the
+.Pa /etc/rc
+startup script.
+.It Fl t Ar timeout
+Specify a maximum timeout to wait after running the shutdown scripts and 
+between the sending the various kill signals. The default is 3 seconds.
+.It Fl v 
+Show the output of shutdown or startup scripts on the console. This also
+enables all warnings. 
+.It Ar jail
+Either a jail id (which is an integer) or a jail host name.
+.El
+.Sh NOTES
+It's generally assumed that the jail in question is a 'full jail' with
+startup and shutdown scripts. If that's not the case use the 
+.Fl k
+option.
+.Pp
+The startup and shutdown scripts inside the jail must be shell scripts 
+and must be owned by root in order to be executed.
+.Pp
+The environment is purged properly before running the scripts in the 
+jail in order to prevent unwanted information from leaking into the
+jail.
+.Pp
+Both startup and shutdown are logged to the jail's console if it exists.
+.Pp
+.Nm
+needs a valid 
+.Pa /dev/null
+device in the jail. If it doesn't exit for some reason it is automatically 
+created. 
+.Sh FILES
+.Pa /etc/rc
+.Pa /etc/rc.shutdown
+.Pa /dev/console
+.Sh SEE ALSO
+.Xr jail 8 ,
+.Xr jails 8 ,
+.Xr jls 8 ,
+.Xr jstart 8 ,
+.Xr kill 1
+.Sh AUTHOR
+.An Stef Walter Aq stef@memberwebs.com

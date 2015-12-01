@@ -1,0 +1,77 @@
+.\" 
+.\" Copyright (c) 2004, Stefan Walter
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without 
+.\" modification, are permitted provided that the following conditions 
+.\" are met:
+.\" 
+.\"     * Redistributions of source code must retain the above 
+.\"       copyright notice, this list of conditions and the 
+.\"       following disclaimer.
+.\"     * Redistributions in binary form must reproduce the 
+.\"       above copyright notice, this list of conditions and 
+.\"       the following disclaimer in the documentation and/or 
+.\"       other materials provided with the distribution.
+.\"     * The names of contributors to this software may not be 
+.\"       used to endorse or promote products derived from this 
+.\"       software without specific prior written permission.
+.\" 
+.\" THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+.\" "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
+.\" LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS 
+.\" FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
+.\" COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+.\" INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+.\" BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS 
+.\" OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED 
+.\" AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+.\" OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF 
+.\" THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+.\" DAMAGE.
+.\" 
+.\"
+.\" CONTRIBUTORS
+.\"  James E. Quick <jq@quick.com>
+.\"  Stef Walter <stef@memberwebs.com>
+.\"
+.\" Process this file with 
+.\" groff -mdoc -Tascii injail.8
+.\"
+.Dd May 28, 2002
+.Dt INJAIL 8
+.Os
+.Sh NAME
+.Nm injail
+.Nd determine if a process is running in a jail
+.Sh SYNOPSIS
+.Nm
+.Sh DESCRIPTION
+The
+.Nm
+utility returns a result which indicates the jailed status of
+the current process environment.
+.Sh DIAGNOSTICS
+The
+.Nm
+utility exits with one of the following values:
+.Bl -tag -width indent -compact
+.It 0
+the process is running in a jail.
+.It 1
+the process is not running in a jail.
+.It 2
+an error prevented determining if the process is running in a jail.
+.El
+.Sh BUGS
+.Nm
+uses kvm_getprocs(3) to determine process status. Anything which 
+could cause a failure in either kvm_open(3) or kvm_getprocs(3) can
+cause this to fail as well. There aught to be a cleaner way.
+.Sh AUTHOR
+ James E. Quick <jq@quick.com>
+.Sh SEE ALSO
+.Xr jails 8 ,
+.Xr jail 8 ,
+.Xr jls 8 ,
+.Xr kvm 3
